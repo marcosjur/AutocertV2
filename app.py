@@ -1,5 +1,3 @@
-from time import time
-from turtle import delay
 from flask import Flask, request, render_template, Response
 from projects.create_cert import Certificate
 from random import randint
@@ -11,7 +9,7 @@ app = Flask(__name__)
 def certificates_multi():
     return render_template("about_me.html")
 
-@app.route('/autocert/single', methods=['POST'])
+""" @app.route('/autocert/single', methods=['POST'])
 def certficates_single():
     
     payload = {'username':request.json['username'],
@@ -22,7 +20,7 @@ def certficates_single():
     user = Certificate(userid=payload['userid'], username=payload['username'], useremail=payload['useremail'], usercourse=payload['usercourse'])
     user.writing_certigicate()
     
-    return Response(status=200, mimetype='application/json')
+    return Response(status=200, mimetype='application/json') """
 
 @app.route('/karinacardoso', methods=['GET'])
 def cardosin():
