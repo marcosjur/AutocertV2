@@ -1,6 +1,9 @@
-from crypt import methods
+from time import time
+from turtle import delay
 from flask import Flask, request, render_template, Response
 from projects.create_cert import Certificate
+from random import randint
+from time import sleep
 
 app = Flask(__name__)
 
@@ -24,6 +27,16 @@ def certficates_single():
 @app.route('/karinacardoso', methods=['GET'])
 def cardosin():
     return '<h1>Linda, te amo demais <3</h1>'
+
+
+app.route('/test')
+def tests():
+    delay = randint(1,3)
+    sleep(delay)
+    r = f"<h1>Delay {delay}</h1>"
+    return r
+    
+    
 
 
 if __name__ == '__main__':
