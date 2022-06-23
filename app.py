@@ -27,7 +27,7 @@ def cardosin():
     return '<h1>Linda, te amo demais <3</h1>'
 
 
-app.route('/test')
+app.route('/test', methods=['GET'])
 def tests():
     delay = randint(1,3)
     sleep(delay)
