@@ -1,25 +1,26 @@
 import os
 import uuid
-from projects.upload_blob import Blob
+from projects.send_email import SendMail
 
 class Certificate:
     
-    def __init__(self, userid=int, username=str, usercourse=str, useremail=str):
+    def __init__(self, username=str, usercourse=str, useremail=str):
         self.username = username
         self.usercourse = usercourse
         self.useremail = useremail
-        self.userid = userid
+
         
-    def writing_certigicate(self):
+    def writing_certificate(self):
         
         filename = str(uuid.uuid4())+ ".html"
-        pre_path = os.path.join("projects/certificates/", str(self.userid))
-        filepath = os.path.join("projects/certificates/", str(self.userid), filename)
+        pre_path = os.path.join("projects/certificates/", str(self.username))
+        filepath = os.path.join("projects/certificates/", str(self.username), filename)
         
         try:
             os.mkdir(pre_path)
             print(f"Directory {pre_path} created!")
         except FileExistsError:
+            
             print(f"Directory {pre_path} already exisits")
         
         with open('projects/template/certificate_template.html', 'r+') as template:
@@ -28,6 +29,8 @@ class Certificate:
             certificate_final = open(filepath,"w")
             certificate_final.write(certificate_render)
             certificate_final.close()
+            SendMail(cert=certificate_render, receiver=self.useremail).send()
+        
         #Blob.upload(filename=filename, filepath=filepath)
         return
     

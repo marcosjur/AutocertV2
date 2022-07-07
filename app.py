@@ -1,6 +1,6 @@
 import os
-import call_api
 from flask import Flask, request, render_template, Response, redirect, url_for
+from projects.create_cert import Certificate
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def autocert_form_handler():
         'status': 'success'
     }
     try:
-        call_api.backend_call(payload=new_object)
+        Certificate(username=name, useremail=email, usercourse=course).writing_certificate()
         return redirect(url_for('success'))
     except Exception as e:
         return Response(status=500, mimetype='application/json')
