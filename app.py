@@ -1,40 +1,47 @@
-from flask import Flask, request, render_template, Response
-from projects.create_cert import Certificate
-from random import randint
-from time import sleep
+import os
+import call_api
+from flask import Flask, request, render_template, Response, redirect, url_for
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def certificates_multi():
+@app.route("/", methods=["GET"])
+@app.route("/home", methods=["GET"])
+@app.route("/index", methods=["GET"])
+def home():
+    return render_template("index.html")
+
+@app.route("/success")
+def success():
+    return render_template("success.html")
+
+
+@app.route("/autocert_formulario")
+def autocert_form():
+    return render_template("autocert_form.html")
+
+@app.route("/autocert_formulario", methods=['POST','GET'])
+def autocert_form_handler():
+    name = request.form['name']
+    email = request.form['email']
+    course = request.form['course']
+    new_object = {
+        'code':os.environ.get('AUTOCERT_API_TOKEN'),
+        'name': name,
+        'course': course,
+        'email': email,
+        'status': 'success'
+    }
+    try:
+        call_api.backend_call(payload=new_object)
+        return redirect(url_for('success'))
+    except Exception as e:
+        return Response(status=500, mimetype='application/json')
+    
+
+@app.route("/aboutme")
+def about_me():
     return render_template("about_me.html")
 
-""" @app.route('/autocert/single', methods=['POST'])
-def certficates_single():
-    
-    payload = {'username':request.json['username'],
-                'usercourse':request.json['usercourse'],
-                'useremail':request.json['useremail'],
-                'userid':request.json['userid']}
-    
-    user = Certificate(userid=payload['userid'], username=payload['username'], useremail=payload['useremail'], usercourse=payload['usercourse'])
-    user.writing_certigicate()
-    
-    return Response(status=200, mimetype='application/json') """
-
-@app.route('/karinacardoso', methods=['GET'])
-def cardosin():
-    return '<h1>Linda, te amo demais <3</h1>'
-
-
-app.route('/test', methods=['GET'])
-def tests():
-    delay = randint(1,3)
-    sleep(delay)
-    r = f"<h1>Delay {delay}</h1>"
-    return r
-    
-    
 
 
 if __name__ == '__main__':
