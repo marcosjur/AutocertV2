@@ -14,8 +14,8 @@ class SendMail:
         self.cert = cert
         self.anexo = Path(self.cert)
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
-        self.email = os.environ.get('AUTOCERT_EMAIL_FROM')
-        self.key = str(os.environ.get('AUTOCERT_TOKEN_EMAIL'))
+        self.email = os.environ['AUTOCERT_EMAIL_FROM']
+        self.key = str(os.environ['AUTOCERT_TOKEN_EMAIL'])
         self.msg = MIMEMultipart()
         self.email_destiny = receiver
         
@@ -28,9 +28,9 @@ class SendMail:
         self.server.login(self.email, self.key)
 
         # Mensage configuration
-        self.msg["From"] = str(os.environ.get('AUTOCERT_EMAIL_FROM'))
+        self.msg["From"] = str(os.environ['AUTOCERT_EMAIL_FROM'])
         self.msg["to"] = self.email_destiny
-        self.msg["Subject"] = str(os.environ.get('AUTOCERT_EMAIL_SUBJECT'))
+        self.msg["Subject"] = str(os.environ['AUTOCERT_EMAIL_SUBJECT'])
         self.msg["Bcc"] = self.email_destiny
 
         # Send email
