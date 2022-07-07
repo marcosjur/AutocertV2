@@ -11,13 +11,13 @@ variables:
   azureServiceConnectionId: '89551978-a52c-4919-8212-c4f1c536a57b'
 
   # Web app name
-  webAppName: 'prd1'
+  webAppName: 'autocert-as'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'prd1'
+  environmentName: 'autocert-as'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
