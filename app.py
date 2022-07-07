@@ -33,7 +33,7 @@ def autocert_form_handler():
     }
     try:
         Certificate(username=name, useremail=email, usercourse=course).writing_certificate()
-        return redirect(url_for('success'))
+        return redirect('https://prd1.azurewebsites.net/success', code=200)
     except Exception as e:
         return Response(status=500, mimetype='application/json')
     
