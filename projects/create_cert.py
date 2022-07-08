@@ -26,9 +26,9 @@ class Certificate:
         with open('projects/template/certificate_template.html', 'r+') as template:
             certificate_template = template.read()
             certificate_render = certificate_template.replace('{username}', self.username).replace('{usercourse}', self.usercourse)
-            certificate_final = open(filepath,"w")
-            certificate_final.write(certificate_render)
-            certificate_final.close()
+            #certificate_final = open(filepath,"w")
+            #certificate_final.write(certificate_render)
+            #certificate_final.close()
             SendMail(cert=certificate_render, receiver=self.useremail).send()
         
         #Blob.upload(filename=filename, filepath=filepath)
