@@ -9,7 +9,6 @@ class SendMail:
 
     def __init__(self, receiver=str, cert=str):
         self.cert = cert
-        self.anexo = Path(self.cert)
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
         self.email = os.environ['AUTOCERT_EMAIL_FROM']
         self.key = str(os.environ['AUTOCERT_TOKEN_EMAIL'])
