@@ -26,11 +26,9 @@ def autocert_form_handler():
     name = request.form['name']
     email = request.form['email']
     course = request.form['course']
-    try:
-        Certificate(username=name, useremail=email, usercourse=course).writing_certificate()
-        return render_template("success.html")
-    except Exception as e:
-        return Response(e, status=500, mimetype='application/json')
+    
+    Certificate(username=name, useremail=email, usercourse=course).writing_certificate()
+    return render_template("success.html")
     
 
 @app.route("/aboutme")
