@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, request, render_template, Response, redirect, url_for
 from projects.create_cert import Certificate
 
@@ -24,18 +25,11 @@ def autocert_form_handler():
     name = request.form['name']
     email = request.form['email']
     course = request.form['course']
-    new_object = {
-        'code':os.environ.get('AUTOCERT_API_TOKEN'),
-        'name': name,
-        'course': course,
-        'email': email,
-        'status': 'success'
-    }
     try:
         Certificate(username=name, useremail=email, usercourse=course).writing_certificate()
         return render_template("success.html")
     except Exception as e:
-        return Response(status=500, mimetype='application/json')
+        return Response(e, status=500, mimetype='application/json')
     
 
 @app.route("/aboutme")
