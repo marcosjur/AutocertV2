@@ -1,3 +1,4 @@
+from crypt import methods
 import os
 import json
 from flask import Flask, request, render_template, Response, redirect, url_for
@@ -11,7 +12,16 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/autocert_formulario", methods=['POST','GET'])
+@app.route("/success")
+def success():
+    return render_template("success.html")
+
+
+@app.route("/autocert_formulario", methods=['GET'])
+def autocert_form():
+    return render_template("autocert_form.html")
+
+@app.route("/autocert_formulario", methods=['POST'])
 def autocert_form_handler():
     name = request.form['name']
     email = request.form['email']
