@@ -11,15 +11,6 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/success")
-def success():
-    return render_template("success.html")
-
-
-@app.route("/autocert_formulario")
-def autocert_form():
-    return render_template("autocert_form.html")
-
 @app.route("/autocert_formulario", methods=['POST','GET'])
 def autocert_form_handler():
     name = request.form['name']
